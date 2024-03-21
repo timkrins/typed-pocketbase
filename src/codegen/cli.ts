@@ -26,12 +26,15 @@ sade(PKG_NAME, true)
 	)
 	.action(
 		async ({
-			url,
+			url = process.env.POCKETBASE_URL,
 			email = process.env.POCKETBASE_EMAIL,
 			password = process.env.POCKETBASE_PASSWORD,
 			out
 		}: CliOptions) => {
-			if (!url) error(`required option '-u, --url' not specified`);
+			if (!url)
+				error(
+					`required option '-u, --url' not specified and 'POCKETBASE_URL' env not set`
+				);
 
 			if (!email)
 				error(
